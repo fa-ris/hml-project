@@ -1,0 +1,15 @@
+###### SPARSITY #####
+
+- Conceptually, sparsity refers to having zero/near-zero values in the weight matrix.
+- In dropout, we "drop" neurons either randomly, in a specific pattern, or those that are invariant.
+- In sparsity, we keep those neurons that are zero/near-zero during training. 
+- We can induce sparsity in a few ways - L1 regularization, thresholding, etc. 
+- Thresholding is similar to ReLU but it operates on the weight matrix --> absolute values below a certain threshold are set to 0 during training. 
+- Two types of thresholding is tried here - raw and scaled. 
+- Raw: As the name suggests, we randomly pick values close to 0 such as 0.01, 0.1, 0.5, etc. and run our model 
+- Scaled: We calculate the max value of the weight matrix and scale it by 0.01, 0.1, 0.2, 0.4, etc and run our model
+- Values closer to zero - both raw and scaled - report higher accuracy. 
+
+
+- Additional argument included in server file --sparsity_threshold <float>
+- For raw/scaled, the change can be made directly in the feddropSparse file. 
