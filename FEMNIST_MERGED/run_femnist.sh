@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Server or client (0-erver 1-client)?"
+echo "Server or client (0-server 1-client)?"
 read cid
 echo "Enter port number: "
 read p_num
@@ -8,6 +8,8 @@ read c_num
 if [[ $cid -eq 0 ]]; then
 echo "Enter Sparsity+Quantization+FedAdam as a single input of consective characters (combination of s, q, and f like sqf or qf to set only those switches to true) or n for default FLuID: "
 read input
+echo "Enter number of rounds: "
+read rounds
 else
 echo "Enable quantization (q/n)? : "
 read input
@@ -50,7 +52,7 @@ then
         server="$ip"
     done <ip.txt
     sample=$(echo "scale=0; ($factor * $c_num + 0.5) / 1" | bc)
-    command="python3 server.py --server_address $server:$port --rounds 10 --min_num_clients $c_num --min_sample_size $sample --model Net"
+    command="python3 server.py --server_address $server:$port --rounds $rounds --min_num_clients $c_num --min_sample_size $sample --model Net"
     if [ "$s" = true ]; then
        command+=" --sparsity True --sparsity_threshold $sparsity_threshold"
     fi

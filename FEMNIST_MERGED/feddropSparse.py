@@ -35,12 +35,10 @@ from flwr.common import (
 from flwr.common.logger import log
 from flwr.server.client_manager import ClientManager
 from flwr.server.client_proxy import ClientProxy
-from sparsify import sparsify_weights
 from aggregate import aggregate, aggregate_drop, weighted_loss_avg
 from flwr.server.strategy import Strategy
 import numpy as np
 import random
-import pdb
 DEPRECATION_WARNING = """
 DEPRECATION WARNING: deprecated `eval_fn` return format
 
@@ -300,7 +298,6 @@ class FedDropSparse(Strategy):
                 return elem[1].fit_duration
 
         results.sort(key=time)
-        #pdb.set_trace()
         # set number of stragglers 
         numStrag = int(len(results) * 0.2)
         if (numStrag < 1):
@@ -358,7 +355,6 @@ class FedDropSparse(Strategy):
             print(self.straggler)
             print(self.p_val)
 
-        #pdb.set_trace()
         return weights_to_parameters(aggregated_weights), {}
 
     def aggregate_evaluate(
